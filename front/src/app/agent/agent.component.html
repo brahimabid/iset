@@ -1,0 +1,121 @@
+<div class="container">
+       
+      <div class="card">
+          <div class="card-header">
+            <h3>MR: &nbsp; {{nom}}
+              <span>
+                <a style="float: right;" (click)="logout()">   <mat-icon>account_circle</mat-icon>
+                </a>
+              </span>
+            </h3>
+            
+          </div>
+          <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>dpartment</mat-label>
+                        <mat-select #dep>
+                          <mat-option  value="informatique" (click)="searchDepartment(dep.value)">
+                            informatique
+                          </mat-option>
+                          <mat-option value="mecanique" (click)="searchDepartment(dep.value)">
+                            mecanique
+                          </mat-option>
+                          <mat-option value="electrique" (click)="searchDepartment(dep.value)">
+                            electrique
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field >
+                         <br>
+                         <mat-form-field class="example-full-width">
+                        <mat-label>classe</mat-label>
+                        <mat-select >
+                          <mat-option *ngFor="let c of tabClass2" value="  {{c.depart}} &nbsp;: {{c.niveau}} &nbsp;: {{c.nom}}" (click)="searchClass(c)">
+                            {{c.depart}} &nbsp;: {{c.niveau}} &nbsp;: {{c.nom}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+              
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field>
+                        <mat-label>semestre</mat-label>
+                        <mat-select #sem>
+                          <mat-option  value="1" (click)="searchSemestre(sem.value)">
+                           semestre 1
+                          </mat-option>
+                          <mat-option  value="2" (click)="searchSemestre(sem.value)">
+                           semestre 2
+                           </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                         <br>
+                         <mat-form-field>
+                        <mat-label>Matiere</mat-label>
+                        <mat-select>
+                          <mat-option *ngFor="let m of tabM2" [value]="m.nom" (click)="etudiantClass(m)">
+                            {{m.nom}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <input #min  matInput placeholder="code min" >
+                      </mat-form-field>
+                      <br>
+                      <mat-form-field class="example-full-width">
+                        <input #max matInput placeholder="code max" >
+                      </mat-form-field>
+                </div>
+
+            </div>
+          </div>
+      </div>
+ 
+   <div class="row" style="margin-top: 20px;">
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">NumInscrit</th>
+            <th scope="col">nom</th>
+            <th scope="col">prenom</th>
+            <th scope="col">Code</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="ajouter==false">
+           
+                    <tr *ngFor="let  e of tabE" >
+                        <td scope="row">{{e.numInscrit}}</td>
+                        <td>{{e.nom}}</td>
+                        <td>{{e.prenom}}</td>
+                        <td>
+                            <div > <input *ngIf="codeInserer(e).status==false" type="text" #code (keyup.enter)="aff(code.value,e,min.value,max.value)"></div>
+<h4 *ngIf="codeInserer(e).status ==true" >{{ codeInserer(e).code }}</h4>       
+                 </td>
+                      </tr>
+
+                      <button class="btn btn-primary" (click)="enregistrer()">Enregistrer </button>
+
+                    </tbody>
+            <tbody *ngIf="ajouter == true">
+
+                    <tr *ngFor="let  et of tabEtudiant" >
+                        <td scope="row">{{et.etudiant.numInscrit}}</td>
+                        <td>{{et.etudiant.nom}}</td>
+                        <td>{{et.etudiant.prenom}}</td>
+                        <td>
+                            <div >{{et.code}}</div>
+                        </td>
+                      </tr>
+
+                    </tbody>
+            
+       
+        
+      </table>
+      <br>
+
+   </div>
+  </div>

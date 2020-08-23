@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <mat-list>
+                <mat-list-item class="card-header">
+                    <h3 mat-subheader>Prof : &nbsp; {{nom}}
+
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <mat-icon>account_circle</mat-icon>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" (click)="logout()">deconnexion</a>
+                            </div>
+                        </div>
+                    </h3>
+                </mat-list-item>
+
+
+                <mat-list-item class="list" *ngFor="let m of tabMatierres">
+                    <a (click)="export(m)"> 
+                        <span class="material-icons">
+                            picture_as_pdf
+    
+                        </span>
+                    </a>
+                    <div (click)="affMatierre(m)">
+                        <h6 mat-line>
+                            <span> department: {{m.class.depart}}</span>&nbsp;&nbsp;
+                            <span>classe:{{m.class.niveau}}</span>
+                            <span>{{m.class.nom}}</span><br>
+                            <span>matierre:{{m.nom}}</span><br>
+                            <span>semestre :{{m.semestre}}</span>
+
+                        </h6>
+
+                    </div>
+                    <mat-divider></mat-divider>
+
+                </mat-list-item>
+
+
+            </mat-list>
+
+
+
+
+        </div>
+
+
+
+
+        <div class="col-md-7">
+            <div class="card" id="myCard">
+                <div class="card-header">
+                    <h4 style="text-align: center;">Institut superieur d'etude technologique mahdia</h4>
+                    <h5>
+                        <span style="float: left;">Anne universitaire : 2019/2020</span>
+                        <h5 *ngIf="matiere">department: {{matiere.class.depart}}</h5>
+                        <h5 *ngIf="matiere">class: {{matiere.class.niveau}} &nbsp;{{matiere.class.nom}}</h5>
+                    </h5>
+                    <br>
+                    &nbsp;<span *ngIf="matiere">semestre: {{matiere.semestre}}</span>
+                    &nbsp;<span style="float: right;" *ngIf="matiere">matiere: {{matiere.nom}}</span>
+
+
+
+                </div>
+                <div class="card-body" *ngIf="pasEncore==false">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">numInscrit</th>
+                                <th scope="col">Nom</th>
+
+                                <th scope="col">Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let n of Notes">
+                                <td scope="row">
+                                    {{n.etudiant.numInscrit}}
+                                </td>
+                                <td>{{n.etudiant.nom}} &nbsp; {{n.etudiant.prenom}}</td>
+                                <td>{{n.note}}</td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="alert alert-warning" *ngIf="pasEncore==true">les note du cette matierre pas ecores Ajoutées</div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

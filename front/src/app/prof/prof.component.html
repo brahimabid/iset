@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+           
+            <mat-list>
+                <mat-list-item class="card-header">
+                    <h3 mat-subheader>Prof : &nbsp; {{nom}}
+
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         <mat-icon>account_circle</mat-icon>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="#">Action</a>
+                          <a class="dropdown-item" href="#">Another action</a>
+                          <a class="dropdown-item" (click)="logout()">deconnexion</a>
+                        </div>
+                      </div> 
+                    </h3>         
+                  </mat-list-item>
+              
+
+                <mat-list-item class="list"  *ngFor="let m of tabMatierre">
+                    
+                    <div  (click)="affMatiere(m)"> 
+                         <h6 mat-line>
+                           <span> department: {{m.class.depart}}</span>&nbsp;&nbsp;
+                            <span>classe:{{m.class.niveau}}</span>
+                        <span>{{m.class.nom}}</span><br>
+                        <span>matierre:{{m.nom}}</span><br>
+                        <span>semestre :{{m.semestre}}</span>
+                         </h6>
+
+                        </div>
+                <mat-divider></mat-divider>
+
+                </mat-list-item>
+               
+
+            </mat-list>
+        </div>
+
+
+
+
+        <div class="col-md-8">
+            <div class="card" *ngIf="matiere !=null" >
+                <div class="card-header">
+
+                      <h3>classe :{{matiere.class.nom}}   </h3>     
+                       <h4 style="float:right"> {{matiere.nom}} / semestre {{matiere.semestre}} </h4>
+                </div>
+                <div class="card-body">
+                    <table class="table" *ngIf="tabFilter.length!=0">
+                        <thead>
+                            <tr>
+                                
+                                <th scope="col">Code</th>
+                                
+                                <th scope="col">Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let d of tabFilter">
+                                <td scope="row">
+                                  {{d.code}}
+                                </td>
+                              
+                                <td>
+                                    <div >
+                                         <input *ngIf="d.note == 'null' || d.note==''" type="text" #note (keyup.enter)="insert(note.value,d)"></div>
+        <h4 *ngIf="d.note!='null'" >{{ d.note}}</h4>       
+                         </td>
+                              </tr>
+        
+        
+                           
+                        </tbody>
+                    </table>
+                    <div class="alert alert-success" *ngIf="tabFilter.length==0 && submitted==true">les notes sont ajoutes avec success</div>
+                    <div class="alert alert-warning" *ngIf="tabFilter.length==0 && submitted==false">les code pas encore préts</div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
